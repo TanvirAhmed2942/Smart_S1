@@ -4,8 +4,9 @@ import { CgTemplate } from "react-icons/cg";
 import { Menu } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
+import { LuClipboardList } from "react-icons/lu";
 import { TbBellBolt, TbDashboard, TbListDetails } from "react-icons/tb";
+import { HiUsers } from "react-icons/hi";
 import { RxDashboard } from "react-icons/rx";
 import { PiWallet } from "react-icons/pi";
 import { FiLogOut, FiUsers } from "react-icons/fi";
@@ -33,7 +34,7 @@ const Sidebar = ({ isCollapsed }) => {
     },
     {
       key: "/booking-list",
-      icon: <PiWallet size={25} />,
+      icon: <LuClipboardList size={25} />,
       label: isCollapsed ? (
         <Link to="/booking-list">Bookings</Link>
       ) : (
@@ -42,7 +43,7 @@ const Sidebar = ({ isCollapsed }) => {
     },
     {
       key: "subMenuSetting2",
-      icon: <CgTemplate size={24} className="text-black" />,
+      icon: <HiUsers size={24} className="text-black" />,
       label: "User",
       children: [
         {
