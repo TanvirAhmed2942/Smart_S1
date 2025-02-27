@@ -3,7 +3,7 @@ import { Modal, Form, Input, Upload, ConfigProvider, message } from "antd";
 import { CloseCircleOutlined, CloudUploadOutlined } from "@ant-design/icons";
 import ButtonEDU from "../../../../components/common/ButtonEDU";
 
-function EditCategoryModal({
+function EditServiceModal({
   isEditing,
   isModalOpen,
   setIsModalOpen,
@@ -33,9 +33,9 @@ function EditCategoryModal({
       >
         <Form form={form} layout="vertical" onFinish={handleFormSubmit}>
           <Form.Item
-            label="Category"
-            name="category"
-            rules={[{ required: true, message: "Please enter Category!" }]}
+            label="Name"
+            name="name"
+            rules={[{ required: true, message: "Please enter the name!" }]}
           >
             <Input placeholder="Enter slider name" className="h-12" />
           </Form.Item>
@@ -73,4 +73,4 @@ function EditCategoryModal({
   );
 }
 
-export default EditCategoryModal;
+export default EditServiceModal;

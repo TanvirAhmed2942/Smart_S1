@@ -2,77 +2,40 @@ import React, { useState } from "react";
 import {
   Table,
   ConfigProvider,
-  Modal,
-  Form,
-  Input,
-  Upload,
   message,
   Button,
+  Popover,
+  Form,
+  Input,
 } from "antd";
-import {
-  PlusOutlined,
-  CloudUploadOutlined,
-  CloseCircleOutlined,
-} from "@ant-design/icons";
-import ButtonEDU from "../../../../components/common/ButtonEDU";
-
+import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import { FiEdit2 } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import GetPageName from "../../../../components/common/GetPageName";
 
-function ServiceList() {
+// Import the modal components
+
+import { HiDotsVertical } from "react-icons/hi";
+import EditServiceModal from "./EditServiceModal";
+import DeleteServiceModal from "./DeleteServiceModal";
+
+function CategoryList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-
   const [form] = Form.useForm();
   const [uploadedImage, setUploadedImage] = useState(null);
   const [editingKey, setEditingKey] = useState(null);
-  const [searchText, setSearchText] = useState("");
   const [tableData, setTableData] = useState([
-    {
-      key: "1",
-      serial: 1,
-      category: "Photography",
-      icon: "",
-      totalServices: 20,
-      priceRange: "$50 - $500",
-    },
-    {
-      key: "2",
-      serial: 2,
-      category: "Graphic Design",
-      icon: "",
-      totalServices: 15,
-      priceRange: "$30 - $300",
-    },
-    {
-      key: "3",
-      serial: 3,
-      category: "Web Development",
-      icon: "",
-      totalServices: 25,
-      priceRange: "$100 - $1000",
-    },
-    {
-      key: "4",
-      serial: 4,
-      category: "Marketing",
-      icon: "",
-      totalServices: 10,
-      priceRange: "$50 - $700",
-    },
-    {
-      key: "5",
-      serial: 5,
-      category: "Writing & Editing",
-      icon: "",
-      totalServices: 18,
-      priceRange: "$20 - $400",
-    },
+    { key: "1", name: "John Brown", serial: 1, sliderimg: "" },
+    { key: "2", name: "Jim Green", serial: 2, sliderimg: "" },
+    { key: "3", name: "Joe Black", serial: 3, sliderimg: "" },
+    { key: "4", serial: 4, sliderimg: "", name: "Mountain Escape" },
+    { key: "5", serial: 5, sliderimg: "", name: "Sunset Glow" },
+    { key: "6", serial: 6, sliderimg: "", name: "City Lights" },
   ]);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deletingRecord, setDeletingRecord] = useState(null);
-  const [filteredData, setFilteredData] = useState(tableData);
+
   const showModal = () => {
     setIsEditing(false);
     setIsModalOpen(true);
@@ -85,26 +48,6 @@ function ServiceList() {
     setEditingKey(null);
   };
 
-  const handleSearch = (e) => {
-    const value = e.target.value.toLowerCase();
-    setSearchText(value);
-
-    if (!value) {
-      setFilteredData(tableData); // Reset to full list when search is cleared
-      return;
-    }
-
-    const newFilteredData = tableData.filter((item) =>
-      Object.keys(item).some(
-        (key) =>
-          key !== "icon" && // Exclude 'icon'
-          key !== "serial" && // Exclude 'serial'
-          String(item[key]).toLowerCase().includes(value)
-      )
-    );
-
-    setFilteredData(newFilteredData);
-  };
   const handleFormSubmit = (values) => {
     if (!uploadedImage && !isEditing) {
       message.error("Please upload an image!");
@@ -118,7 +61,7 @@ function ServiceList() {
           ? {
               ...item,
               name: values.name,
-              icon: uploadedImage || item.icon,
+              sliderimg: uploadedImage || item.sliderimg, // Retain old image if no new one is uploaded
             }
           : item
       );
@@ -132,7 +75,7 @@ function ServiceList() {
           key: (tableData.length + 1).toString(),
           name: values.name,
           serial: tableData.length + 1,
-          icon: uploadedImage,
+          sliderimg: uploadedImage, // Ensure uploaded image is set
         },
       ]);
       message.success("Slider added successfully!");
@@ -161,7 +104,7 @@ function ServiceList() {
   const handleEdit = (record) => {
     setIsEditing(true);
     setEditingKey(record.key);
-    setUploadedImage(record.icon);
+    setUploadedImage(record.sliderimg);
     form.setFieldsValue({ name: record.name });
     setIsModalOpen(true);
   };
@@ -194,42 +137,46 @@ function ServiceList() {
       ),
     },
     {
-      title: "Category",
-      dataIndex: "category",
-      key: "category",
+      title: "Slider Image",
+      dataIndex: "sliderimg",
+      key: "sliderimg",
+      render: (sliderimg) => <img width={60} src={sliderimg} alt="slider" />,
     },
     {
-      title: "Icon",
-      dataIndex: "icon",
-      key: "icon",
-      render: (icon) => <img width={60} src={icon} alt="slider" />,
-    },
-    {
-      title: "Total Services",
-      dataIndex: "totalServices",
-      key: "totalServices",
-    },
-    {
-      title: "Price Range",
-      dataIndex: "priceRange",
-      key: "priceRange",
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Actions",
       key: "actions",
       render: (_, record) => (
-        <div className="flex gap-4">
-          <FiEdit2
-            style={{ fontSize: 24 }}
-            className="text-black hover:text-blue-500 cursor-pointer"
-            onClick={() => handleEdit(record)}
-          />
-          <RiDeleteBin6Line
-            style={{ fontSize: 24 }}
-            className="text-black hover:text-red-500 cursor-pointer"
-            onClick={() => handleDelete(record.key, record.name)}
-          />
-        </div>
+        <Popover
+          content={
+            <div className="flex items-center gap-2">
+              <button
+                className="bg-sky-400/50 hover:bg-sky-400 p-2 rounded-lg"
+                type="link"
+                onClick={() => handleEdit(record)}
+              >
+                <FiEdit2 size={15} />
+              </button>
+              <button
+                className="bg-red-400/50 hover:bg-red-400 p-2 rounded-lg"
+                type="link"
+                onClick={() => handleDelete(record.key, record.name)}
+              >
+                <RiDeleteBin6Line size={15} />
+              </button>
+            </div>
+          }
+          trigger="click"
+          placement="bottom"
+        >
+          <button>
+            <HiDotsVertical />
+          </button>
+        </Popover>
       ),
     },
   ];
@@ -238,15 +185,16 @@ function ServiceList() {
     <div>
       <div className="flex justify-between items-center py-5">
         <h1 className="text-[20px] font-medium">{GetPageName()}</h1>
-        <div className="flex gap-4">
+        <div className="flex gap-3">
           <Input
-            placeholder="Search in all columns"
-            value={searchText}
-            onChange={handleSearch}
-            className="w-36 h-12"
+            placeholder="Search by Name, Email or Phone"
+            onChange={(e) => handleSearch(e.target.value)}
+            prefix={<SearchOutlined />}
+            style={{ width: 200 }}
+            className="h-10"
           />
           <button
-            className="bg-smart text-white px-4 py-2.5 rounded-md flex items-center"
+            className="bg-smart h-10 text-white px-4 py-2.5 rounded-md flex items-center"
             onClick={showModal}
           >
             <PlusOutlined className="mr-2" />
@@ -263,21 +211,23 @@ function ServiceList() {
               headerBg: "#f6f6f6",
               headerSplitColor: "none",
               headerBorderRadius: "none",
-              cellFontSize: "16px",
             },
             Pagination: {
               borderRadius: "3px",
               itemActiveBg: "#18a0fb",
-              // itemBg: "#000000",
+            },
+            Button: {
+              defaultHoverBg: "#18a0fb ",
+              defaultHoverColor: "white",
+              defaultHoverBorderColor: "#18a0fb ",
             },
           },
         }}
       >
         <Table
           columns={columns}
-          dataSource={filteredData}
+          dataSource={tableData}
           pagination={{
-            // onChange: cancel,
             defaultPageSize: 5,
             position: ["bottomRight"],
             size: "default",
@@ -288,84 +238,27 @@ function ServiceList() {
         />
       </ConfigProvider>
 
-      {/* Delete Confirmation Modal */}
-      <Modal
-        title="Delete Confirmation"
-        visible={isDeleteModalOpen}
-        onCancel={onCancelDelete}
-        footer={null}
-        centered
-      >
-        <div className="flex flex-col justify-between gap-5">
-          <div className="flex justify-center">
-            Are you sure you want to delete{" "}
-            <span className="font-bold ml-1">{deletingRecord?.name}</span>?
-          </div>
-          <div className="flex justify-center gap-4">
-            <ButtonEDU actionType="cancel" onClick={onCancelDelete} />
-            <ButtonEDU actionType="delete" onClick={onConfirmDelete} />
-          </div>
-        </div>
-      </Modal>
+      {/* Modal components */}
+      <EditServiceModal
+        isEditing={isEditing}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        uploadedImage={uploadedImage}
+        setUploadedImage={setUploadedImage}
+        form={form}
+        handleFormSubmit={handleFormSubmit}
+        handleCancel={handleCancel}
+        handleImageUpload={handleImageUpload}
+      />
 
-      {/* Modal Form */}
-      <Modal
-        title={isEditing ? "Edit Category" : "Add Service Category"}
-        open={isModalOpen}
-        onCancel={handleCancel}
-        centered
-        footer={null}
-      >
-        <ConfigProvider
-          theme={{
-            components: {
-              Form: {
-                labelFontSize: 16,
-              },
-            },
-          }}
-        >
-          <Form form={form} layout="vertical" onFinish={handleFormSubmit}>
-            <Form.Item
-              label="Name"
-              name="name"
-              rules={[{ required: true, message: "Please enter the name!" }]}
-            >
-              <Input placeholder="Enter slider name" className="h-12" />
-            </Form.Item>
-
-            <Form.Item label="Upload Image">
-              {uploadedImage ? (
-                <div className="relative">
-                  <img src={uploadedImage} alt="Uploaded" width={100} />
-                  <CloseCircleOutlined
-                    className="absolute top-0 right-0 text-red-500 cursor-pointer"
-                    onClick={() => setUploadedImage(null)}
-                  />
-                </div>
-              ) : (
-                <Upload
-                  name="image"
-                  listType="picture-card"
-                  showUploadList={false}
-                  onChange={handleImageUpload}
-                >
-                  <button style={{ border: 0, background: "none" }}>
-                    <CloudUploadOutlined style={{ fontSize: 24 }} />
-                    <div>Upload</div>
-                  </button>
-                </Upload>
-              )}
-            </Form.Item>
-
-            <div className="flex justify-end">
-              <ButtonEDU actionType="save" />
-            </div>
-          </Form>
-        </ConfigProvider>
-      </Modal>
+      <DeleteServiceModal
+        isDeleteModalOpen={isDeleteModalOpen}
+        deletingRecord={deletingRecord}
+        onCancelDelete={onCancelDelete}
+        onConfirmDelete={onConfirmDelete}
+      />
     </div>
   );
 }
 
-export default ServiceList;
+export default CategoryList;
