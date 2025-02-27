@@ -92,7 +92,7 @@ const BookingListTable = () => {
   );
 
   const columns = [
-    { title: "Booking ID", dataIndex: "bookingID", width: "15%" },
+    { title: "Booking ID", dataIndex: "bookingID", width: "10%" },
     {
       title: "Customer",
       dataIndex: "customername",
@@ -115,6 +115,7 @@ const BookingListTable = () => {
     { title: "Location", dataIndex: "location", width: "25%", editable: true },
     {
       title: "Action",
+
       dataIndex: "action",
       render: (_, record) => {
         const editable = isEditing(record);
@@ -123,19 +124,20 @@ const BookingListTable = () => {
             <Typography.Link
               onClick={() => save(record.key)}
               style={{ marginRight: 8 }}
+              className="text-[14px] text-blue-600"
             >
               Save
             </Typography.Link>
             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
+              <a className="text-[14px] text-blue-600">Cancel</a>
             </Popconfirm>
           </span>
         ) : (
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 w-36">
             <button
               disabled={editingKey !== ""}
               onClick={() => edit(record)}
-              className="text-sky-500 hover:text-sky-600"
+              className=" hover:text-sky-600"
             >
               <FiEdit3 size={20} />
             </button>
@@ -143,7 +145,7 @@ const BookingListTable = () => {
               title="Are you sure to delete?"
               onConfirm={() => handleDelete(record.key)}
             >
-              <button className="text-red-400 hover:text-red-600">
+              <button className=" hover:text-red-600">
                 <RiDeleteBin6Line size={20} />
               </button>
             </Popconfirm>

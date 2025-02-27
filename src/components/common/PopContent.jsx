@@ -26,22 +26,8 @@ const FaqPopover = ({ onEdit, onDelete }) => {
       return (
         <Popover
           content={
-            <div className="flex flex-col items-center  gap-2">
-              <Button
-                icon={<EditFilled />}
-                type="text"
-                // onClick={() => {
-                //   onEdit();
-                //   setIsOpen(false);
-                // }}
-                onClick={() => (
-                  <EditModal
-                    showModal={showModal}
-                    handleOk={handleOk}
-                    handleCancel={handleCancel}
-                  />
-                )}
-              />
+            <div className="flex flex-row items-center gap-2">
+              <Button icon={<EditFilled />} type="text" onClick={showModal} />
               <Button
                 icon={<FaBan />}
                 type="text"
@@ -61,11 +47,12 @@ const FaqPopover = ({ onEdit, onDelete }) => {
           <HiDotsVertical size={20} className="cursor-pointer" />
         </Popover>
       );
+
     case "Faq":
       return (
         <Popover
           content={
-            <div className="flex flex-col items-center  gap-2">
+            <div className="flex flex-row items-center gap-2">
               <Button
                 icon={<EditFilled />}
                 type="text"
