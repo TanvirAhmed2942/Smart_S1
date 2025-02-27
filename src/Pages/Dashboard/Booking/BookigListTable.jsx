@@ -175,6 +175,7 @@ const BookingListTable = () => {
             headerBg: "#f6f6f6",
             headerSplitColor: "none",
             headerBorderRadius: "none",
+            cellFontSize: "16px",
           },
           Pagination: {
             borderRadius: "3px",

@@ -1,5 +1,5 @@
 import { FaHandsHelping } from "react-icons/fa";
-import { FaDiagramProject } from "react-icons/fa6";
+import { FaDiagramProject, FaQuoteRight } from "react-icons/fa6";
 import { CgTemplate } from "react-icons/cg";
 import { Menu } from "antd";
 import React, { useEffect, useState } from "react";
@@ -10,9 +10,18 @@ import { HiUsers } from "react-icons/hi";
 import { RxDashboard } from "react-icons/rx";
 import { PiWallet } from "react-icons/pi";
 import { FiLogOut, FiUsers } from "react-icons/fi";
-import { RiMoneyDollarCircleLine, RiSettings5Line } from "react-icons/ri";
+import { BiSolidCategoryAlt } from "react-icons/bi";
+import {
+  RiContactsBook3Line,
+  RiMoneyDollarCircleLine,
+  RiSettings5Line,
+} from "react-icons/ri";
+import { MdHandyman } from "react-icons/md";
 // import qilocoLogo from "../../assets/quiloco/qilocoLogo.png";
-import { LuBoxes } from "react-icons/lu";
+import { MdOutlinePrivacyTip } from "react-icons/md";
+import { MdHomeRepairService } from "react-icons/md";
+import { IoDocumentTextOutline } from "react-icons/io5";
+import { icons } from "antd/es/image/PreviewGroup";
 
 const Sidebar = ({ isCollapsed }) => {
   const location = useLocation();
@@ -85,7 +94,31 @@ const Sidebar = ({ isCollapsed }) => {
         <Link to="/transaction">Transaction</Link>
       ),
     },
-
+    {
+      key: "subMenuSetting3",
+      icon: <MdHomeRepairService size={24} className="text-black" />,
+      label: "Service",
+      children: [
+        {
+          key: "/category-list",
+          icon: <BiSolidCategoryAlt size={23} />,
+          label: isCollapsed ? (
+            <Link to="/category-list">Category List</Link>
+          ) : (
+            <Link to="/category-list">Category List</Link>
+          ),
+        },
+        {
+          key: "/service-list",
+          icon: <MdHandyman size={24} />,
+          label: isCollapsed ? (
+            <Link to="/service-list">Service List</Link>
+          ) : (
+            <Link to="/service-list">Service List</Link>
+          ),
+        },
+      ],
+    },
     // {
 
     // {
@@ -100,46 +133,6 @@ const Sidebar = ({ isCollapsed }) => {
             label: <Link to="/admin">Make Admin</Link>
         }, */
 
-    {
-      key: "subMenuSetting1",
-      icon: <FaDiagramProject size={23} />,
-      label: "Project",
-      children: [
-        {
-          key: "/newrequest",
-          label: (
-            <Link
-              to="/newrequest"
-              className="text-slate-400 hover:text-slate-400"
-            >
-              New Request
-            </Link>
-          ),
-        },
-        {
-          key: "/activeproject",
-          label: (
-            <Link
-              to="/activeproject"
-              className="text-slate-400 hover:text-slate-400"
-            >
-              Active Project
-            </Link>
-          ),
-        },
-        {
-          key: "/pendingproject",
-          label: (
-            <Link
-              to="/pendingproject"
-              className="text-slate-400 hover:text-slate-400"
-            >
-              Pending Project
-            </Link>
-          ),
-        },
-      ],
-    },
     // {
     //     key: "/sub-category",
     //     icon: <BiSolidCategory size={24} />,
@@ -157,6 +150,8 @@ const Sidebar = ({ isCollapsed }) => {
       children: [
         {
           key: "/privacy-policy",
+
+          icon: <MdOutlinePrivacyTip size={24} />,
           label: (
             <Link to="/privacy-policy" className="text-white hover:text-white">
               Privacy Policy
@@ -165,6 +160,7 @@ const Sidebar = ({ isCollapsed }) => {
         },
         {
           key: "/terms-and-conditions",
+          icon: <IoDocumentTextOutline size={24} />,
           label: (
             <Link
               to="/terms-and-conditions"
@@ -176,6 +172,7 @@ const Sidebar = ({ isCollapsed }) => {
         },
         {
           key: "/faq",
+          icon: <FaQuoteRight size={24} />,
           label: (
             <Link to="/faq" className="text-white hover:text-white">
               FAQ
@@ -184,6 +181,7 @@ const Sidebar = ({ isCollapsed }) => {
         },
         {
           key: "/contact",
+          icon: <RiContactsBook3Line size={24} />,
           label: (
             <Link to="/contact" className="text-white hover:text-white">
               Contact Us

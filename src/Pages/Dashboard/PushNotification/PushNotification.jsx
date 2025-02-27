@@ -98,7 +98,7 @@ function PushNotification() {
               <Button
                 type="block"
                 htmlType="submit"
-                className="w-full bg-prince text-white h-11 text-base gap-4"
+                className="w-full bg-smart hover:bg-smart/90 text-white h-11 text-base gap-4"
               >
                 Send Notification
                 <FaRegPaperPlane />

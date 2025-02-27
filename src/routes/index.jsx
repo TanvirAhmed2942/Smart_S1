@@ -22,10 +22,10 @@ import Contact from "../Pages/Dashboard/Contact/Contact.jsx";
 
 import Customer from "../Pages/Dashboard/Customer/Customer.jsx";
 import PushNotification from "../Pages/Dashboard/PushNotification/PushNotification.jsx";
-import PendingProject from "../Pages/Dashboard/Project/PendingProject/PendingProject.jsx";
-import ActiveProject from "../Pages/Dashboard/Project/ActiveProject/ActiveProject.jsx";
-import NewRequest from "../Pages/Dashboard/Project/NewRequest/NewRequest.jsx";
+
 import BookingList from "../Pages/Dashboard/Booking/BookingList.jsx";
+import CategoryList from "../Pages/Dashboard/Service/CategoryList/CategoryList.jsx";
+import ServiceList from "../Pages/Dashboard/Service/ServiceList/ServiceList.jsx";
 
 const router = createBrowserRouter([
   {
@@ -93,16 +93,12 @@ const router = createBrowserRouter([
         element: <Setting />,
       },
       {
-        path: "/newrequest",
-        element: <NewRequest />,
+        path: "/category-list",
+        element: <CategoryList />,
       },
       {
-        path: "/activeproject",
-        element: <ActiveProject />,
-      },
-      {
-        path: "/pendingproject",
-        element: <PendingProject />,
+        path: "/service-list",
+        element: <ServiceList />,
       },
     ],
   },

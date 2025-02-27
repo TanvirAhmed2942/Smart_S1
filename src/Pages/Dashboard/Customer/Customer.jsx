@@ -1,295 +1,399 @@
+// import React, { useState } from "react";
+// import { Table, Avatar, ConfigProvider, Input, Button } from "antd";
+// import { SearchOutlined, DeleteOutlined } from "@ant-design/icons";
+// import GetPageName from "../../../components/common/GetPageName";
+// import PopOver from "../../../components/common/PopOver";
+// import CustomerEditModal from "../Service/CategoryList/CustomerEditModal";
+
+// function Customer() {
+//   const [searchQuery, setSearchQuery] = useState("");
+//   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+//   const [userData, setUserData] = useState(data);
+//   const [isModalOpen, setIsModalOpen] = useState(false);
+//   const [selectedProvider, setSelectedProvider] = useState(null);
+
+//   const handleSearch = (value) => {
+//     setSearchQuery(value);
+//   };
+
+//   const rowSelection = {
+//     selectedRowKeys,
+//     onChange: setSelectedRowKeys,
+//   };
+
+//   // Handle edit button click
+//   const handleEdit = (record) => {
+//     setSelectedProvider(record); // Store selected provider's data
+//     setIsModalOpen(true); // Open modal
+//   };
+
+//   // Handle ban functionality
+//   const handleBan = (provider) => {
+//     setUserData((prevData) =>
+//       prevData.map((user) =>
+//         user.key === provider.key ? { ...user, banned: !user.banned } : user
+//       )
+//     );
+//     alert(
+//       `${provider.customerName} has been ${
+//         provider.banned ? "unbanned" : "banned"
+//       }`
+//     );
+//   };
+
+//   // Handle saving edited provider
+//   const handleSave = (updatedProvider) => {
+//     setUserData((prevData) =>
+//       prevData.map((user) =>
+//         user.key === updatedProvider.key ? updatedProvider : user
+//       )
+//     );
+//     setIsModalOpen(false);
+//   };
+
+//   const handleDeleteSelected = () => {
+//     setUserData(userData.filter((user) => !selectedRowKeys.includes(user.key)));
+//     setSelectedRowKeys([]);
+//   };
+
+//   return (
+//     <ConfigProvider
+//       theme={{
+//         components: {
+//           Table: {
+//             rowSelectedBg: "#f6f6f6",
+//             headerBg: "#f6f6f6",
+//             headerSplitColor: "none",
+//             headerBorderRadius: "none",
+//             cellFontSize: "16px",
+//           },
+//           Pagination: {
+//             borderRadius: "3px",
+//             itemActiveBg: "#18a0fb",
+//           },
+//           Button: {
+//             defaultHoverBg: "#18a0fb ",
+//             defaultHoverColor: "white",
+//             defaultHoverBorderColor: "#18a0fb ",
+//           },
+//         },
+//       }}
+//     >
+//       <div className="flex justify-between items-center py-5">
+//         <h1 className="text-[20px] font-medium">{GetPageName()}</h1>
+//         <div className="flex gap-3">
+//           <Input
+//             placeholder="Search by Name, Email or Phone"
+//             onChange={(e) => handleSearch(e.target.value)}
+//             prefix={<SearchOutlined />}
+//             style={{ width: 200, height: 40 }}
+//           />
+//           {selectedRowKeys.length > 0 && (
+//             <Button
+//               icon={<DeleteOutlined />}
+//               onClick={handleDeleteSelected}
+//               className="bg-smart hover:bg-smart text-white border-none h-10"
+//             >
+//               Delete Selected
+//             </Button>
+//           )}
+//         </div>
+//       </div>
+
+//       <Table
+//         rowSelection={rowSelection}
+//         columns={columns(handleEdit, handleBan)} // Pass handleEdit and handleBan to columns
+//         dataSource={filteredData}
+//         pagination={{
+//           defaultPageSize: 5,
+//           position: ["bottomRight"],
+//           size: "default",
+//           total: 50,
+//           showSizeChanger: true,
+//           showQuickJumper: true,
+//         }}
+//       />
+//       {/* Edit Modal */}
+//       <CustomerEditModal
+//         isModalOpen={isModalOpen}
+//         handleCancel={() => setIsModalOpen(false)}
+//         providerData={selectedProvider}
+//         onSave={handleSave}
+//       />
+//     </ConfigProvider>
+//   );
+// }
+
+// export default Customer;
+
+// const columns = (handleEdit, handleBan) => [
+//   {
+//     title: "Customer Name",
+//     dataIndex: "customerName",
+//     key: "customerName",
+//     render: (text, record) => (
+//       <div className="flex items-center gap-2.5">
+//         <Avatar src={record.avatar} alt={text} shape="circle" size={40} />
+//         <div className="flex flex-col">
+//           <span>{text}</span>
+//           <span>{record.email}</span>
+//         </div>
+//       </div>
+//     ),
+//   },
+
+//   {
+//     title: "Phone Number",
+//     dataIndex: "phoneNumber",
+//     key: "phoneNumber",
+//   },
+//   {
+//     title: "Address",
+//     dataIndex: "address",
+//     key: "address",
+//   },
+//   {
+//     title: "Spent",
+//     dataIndex: "spent",
+//     key: "spent",
+//   },
+//   {
+//     key: "action",
+//     render: (text, record) => (
+//       <PopOver
+//         onEdit={() => handleEdit(record)}
+//         onBan={() => handleBan(record)} // Pass the handleBan function
+//       />
+//     ),
+//   },
+// ];
+
+// const data = [
+//   {
+//     key: 1,
+//     customerName: "John Doe",
+//     email: "johndoe@gmail.com",
+
+//     phoneNumber: "+1234567890",
+//     address: "10 Warehouse Road, Apapa, Lagos",
+//     spent: "$5000",
+//     avatar: "",
+//     banned: false, // Add banned field
+//   },
+//   {
+//     key: 2,
+//     customerName: "Jane Smith",
+//     email: "janesmith@gmail.com",
+
+//     phoneNumber: "+1234567891",
+//     address: "15 Broad Street, Lagos",
+//     spent: "$4500",
+//     avatar: "",
+//     banned: false, // Add banned field
+//   },
+// ];
+
 import React, { useState } from "react";
-import {
-  Form,
-  Input,
-  InputNumber,
-  Popconfirm,
-  Table,
-  Typography,
-  ConfigProvider,
-  Avatar,
-  Button,
-} from "antd";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { FiEdit3 } from "react-icons/fi";
+import { Table, Avatar, ConfigProvider, Input, Button } from "antd";
+import { SearchOutlined, DeleteOutlined } from "@ant-design/icons";
 import GetPageName from "../../../components/common/GetPageName";
-import { FaBan } from "react-icons/fa6";
+import PopOver from "../../../components/common/PopOver";
+import CustomerEditModal from "../Service/CategoryList/CustomerEditModal";
 
-const originData = Array.from({ length: 20 }).map((_, i) => ({
-  key: i.toString(),
-  customername: `Edward ${i}`,
-  email: `edward${i}@mail.com`,
-  phoneNumber: `12345678${i}`,
-  address: `London Park no. ${i}`,
-  spent: `$${(i + 1) * 100}`,
-  avatar: "",
-}));
-
-const EditableCell = ({
-  editing,
-  dataIndex,
-  title,
-  inputType,
-  children,
-  ...restProps
-}) => {
-  const inputNode = inputType === "number" ? <InputNumber /> : <Input />;
-  return (
-    <td {...restProps}>
-      {editing ? (
-        <Form.Item
-          name={dataIndex}
-          style={{ margin: 0 }}
-          rules={[{ required: true, message: `Please Input ${title}!` }]}
-        >
-          {inputNode}
-        </Form.Item>
-      ) : (
-        children
-      )}
-    </td>
-  );
-};
-
-const Customer = () => {
-  const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
-  const [searchText, setSearchText] = useState("");
-  const [editingKey, setEditingKey] = useState("");
+function Customer() {
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [userData, setUserData] = useState(data);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProvider, setSelectedProvider] = useState(null);
 
-  const isEditing = (record) => record.key === editingKey;
-
-  const edit = (record) => {
-    form.setFieldsValue({ ...record });
-    setEditingKey(record.key);
+  const handleSearch = (value) => {
+    setSearchQuery(value);
   };
 
-  const cancel = () => setEditingKey("");
-
-  const save = async (key) => {
-    try {
-      const row = await form.validateFields();
-      const newData = [...data];
-      const index = newData.findIndex((item) => item.key === key);
-      if (index > -1) {
-        newData[index] = { ...newData[index], ...row };
-        setData(newData);
-      }
-      setEditingKey("");
-    } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
-    }
-  };
-
-  const handleDelete = (key) => {
-    setData(data.filter((item) => item.key !== key));
-  };
-
-  const handleBan = (key) => {
-    confirm(key);
-  };
-
-  const handleDeleteSelected = () => {
-    setData(data.filter((item) => !selectedRowKeys.includes(item.key)));
-    setSelectedRowKeys([]);
-  };
-
-  const handleDeleteAll = () => {
-    setData([]);
-    setSelectedRowKeys([]);
-  };
+  const filteredData = userData.filter((user) => {
+    const searchLower = searchQuery.toLowerCase();
+    return (
+      user.customerName.toLowerCase().includes(searchLower) ||
+      user.email.toLowerCase().includes(searchLower) ||
+      user.phoneNumber.includes(searchQuery) ||
+      user.address.toLowerCase().includes(searchLower) ||
+      user.spent.toLowerCase().includes(searchLower) ||
+      (user.avatar && user.avatar.toLowerCase().includes(searchLower)) // Add checks for any other fields if necessary
+    );
+  });
 
   const rowSelection = {
     selectedRowKeys,
     onChange: setSelectedRowKeys,
   };
 
-  const filteredData = data.filter((item) => {
-    return Object.values(item).some((value) =>
-      value.toString().toLowerCase().includes(searchText.toLowerCase())
+  // Handle edit button click
+  const handleEdit = (record) => {
+    setSelectedProvider(record); // Store selected provider's data
+    setIsModalOpen(true); // Open modal
+  };
+
+  // Handle ban functionality
+  const handleBan = (provider) => {
+    setUserData((prevData) =>
+      prevData.map((user) =>
+        user.key === provider.key ? { ...user, banned: !user.banned } : user
+      )
     );
-  });
+    alert(
+      `${provider.customerName} has been ${
+        provider.banned ? "unbanned" : "banned"
+      }`
+    );
+  };
 
-  const columns = [
-    {
-      title: "Customer Name",
-      dataIndex: "customername",
-      width: "20%",
-      editable: true,
-      render: (text, record) => (
-        <div className="flex items-center gap-2.5">
-          <Avatar src={record.avatar} alt={text} shape="circle" size={40} />
-          <div className="flex flex-col">
-            <span>{text}</span>
-            <span>{record.email}</span>
-          </div>
-        </div>
-      ),
-    },
-    {
-      title: "Phone Number",
-      dataIndex: "phoneNumber",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      width: "25%",
-      editable: true,
-    },
-    {
-      title: "Spent",
-      dataIndex: "spent",
-      width: "25%",
-      editable: true,
-    },
-    {
-      title: "Action",
-      dataIndex: "action",
-      render: (_, record) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <span>
-            <Typography.Link
-              onClick={() => save(record.key)}
-              style={{ marginRight: 8 }}
-            >
-              Save
-            </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <div className="flex items-center justify-start gap-4">
-            <button
-              disabled={editingKey !== ""}
-              onClick={() => edit(record)}
-              className="text-sky-500 hover:text-sky-600"
-            >
-              <FiEdit3 size={20} />
-            </button>
-            <Popconfirm
-              title="Are you sure to Ban?"
-              onConfirm={() => handleBan(record.key)}
-            >
-              <button className="text-red-400 hover:text-red-600">
-                <FaBan size={20} />
-              </button>
-            </Popconfirm>
-            <Popconfirm
-              title="Are you sure to delete?"
-              onConfirm={() => handleDelete(record.key)}
-            >
-              <button className="text-red-400 hover:text-red-600">
-                <RiDeleteBin6Line size={20} />
-              </button>
-            </Popconfirm>
-          </div>
-        );
-      },
-    },
-  ];
+  // Handle saving edited provider
+  const handleSave = (updatedProvider) => {
+    setUserData((prevData) =>
+      prevData.map((user) =>
+        user.key === updatedProvider.key ? updatedProvider : user
+      )
+    );
+    setIsModalOpen(false);
+  };
 
-  const mergedColumns = columns.map((col) => ({
-    ...col,
-    onCell: (record) =>
-      col.editable
-        ? {
-            inputType: col.dataIndex === "phoneNumber" ? "number" : "text",
-            dataIndex: col.dataIndex,
-            title: col.title,
-            editing: isEditing(record),
-          }
-        : undefined,
-  }));
+  const handleDeleteSelected = () => {
+    setUserData(userData.filter((user) => !selectedRowKeys.includes(user.key)));
+    setSelectedRowKeys([]);
+  };
 
   return (
-    <>
-      <ConfigProvider
-        theme={{
-          components: {
-            Table: {
-              rowSelectedBg: "#f6f6f6",
-              headerBg: "#f6f6f6",
-              headerSplitColor: "none",
-              headerBorderRadius: "none",
-            },
-            Pagination: {
-              borderRadius: "3px",
-              itemActiveBg: "#18a0fb",
-              // itemBg: "#000000",
-            },
-
-            Button: {
-              defaultHoverBg: "#18a0fb ",
-              defaultHoverColor: "white",
-              defaultHoverBorderColor: "#18a0fb ",
-            },
+    <ConfigProvider
+      theme={{
+        components: {
+          Table: {
+            rowSelectedBg: "#f6f6f6",
+            headerBg: "#f6f6f6",
+            headerSplitColor: "none",
+            headerBorderRadius: "none",
+            cellFontSize: "16px",
           },
-        }}
-      >
-        <div className="flex justify-between items-center py-5">
-          <h1 className="text-[20px] font-medium">{GetPageName()}</h1>
-          <div className="flex items-center gap-4">
-            <Input
-              placeholder="Search by name, email, phone, or address"
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              allowClear
-              style={{ width: 200, height: 40 }}
-            />
-            {selectedRowKeys.length >= 2 && (
-              <Popconfirm
-                title={
-                  selectedRowKeys.length === data.length
-                    ? "Are you sure to delete all?"
-                    : "Are you sure to delete selected?"
-                }
-                onConfirm={
-                  selectedRowKeys.length === data.length
-                    ? handleDeleteAll
-                    : handleDeleteSelected
-                }
-              >
-                <Button
-                  icon={<RiDeleteBin6Line />}
-                  style={{ marginLeft: 8 }}
-                  className="bg-smart/90 h-10 text-white hover:bg-smart border-none"
-                >
-                  {selectedRowKeys.length === data.length
-                    ? "Delete All"
-                    : "Delete Selected"}
-                </Button>
-              </Popconfirm>
-            )}
-          </div>
-        </div>
-
-        <Form form={form} component={false}>
-          <Table
-            rowSelection={rowSelection}
-            components={{ body: { cell: EditableCell } }}
-            bordered
-            dataSource={filteredData}
-            columns={mergedColumns}
-            rowClassName="editable-row"
-            pagination={{
-              onChange: cancel,
-              defaultPageSize: 5,
-              position: ["bottomRight"],
-              size: "default",
-              total: 50,
-              showSizeChanger: true,
-              showQuickJumper: true,
-            }}
+          Pagination: {
+            borderRadius: "3px",
+            itemActiveBg: "#18a0fb",
+          },
+          Button: {
+            defaultHoverBg: "#18a0fb ",
+            defaultHoverColor: "white",
+            defaultHoverBorderColor: "#18a0fb ",
+          },
+        },
+      }}
+    >
+      <div className="flex justify-between items-center py-5">
+        <h1 className="text-[20px] font-medium">{GetPageName()}</h1>
+        <div className="flex gap-3">
+          <Input
+            placeholder="Search by Name, Email or Phone"
+            onChange={(e) => handleSearch(e.target.value)}
+            prefix={<SearchOutlined />}
+            style={{ width: 200, height: 40 }}
           />
-        </Form>
-      </ConfigProvider>
-    </>
+          {selectedRowKeys.length > 0 && (
+            <Button
+              icon={<DeleteOutlined />}
+              onClick={handleDeleteSelected}
+              className="bg-smart hover:bg-smart text-white border-none h-10"
+            >
+              Delete Selected
+            </Button>
+          )}
+        </div>
+      </div>
+
+      <Table
+        rowSelection={rowSelection}
+        columns={columns(handleEdit, handleBan)} // Pass handleEdit and handleBan to columns
+        dataSource={filteredData}
+        pagination={{
+          defaultPageSize: 5,
+          position: ["bottomRight"],
+          size: "default",
+          total: 50,
+          showSizeChanger: true,
+          showQuickJumper: true,
+        }}
+      />
+      {/* Edit Modal */}
+      <CustomerEditModal
+        isModalOpen={isModalOpen}
+        handleCancel={() => setIsModalOpen(false)}
+        providerData={selectedProvider}
+        onSave={handleSave}
+      />
+    </ConfigProvider>
   );
-};
+}
 
 export default Customer;
+
+const columns = (handleEdit, handleBan) => [
+  {
+    title: "Customer Name",
+    dataIndex: "customerName",
+    key: "customerName",
+    render: (text, record) => (
+      <div className="flex items-center gap-2.5">
+        <Avatar src={record.avatar} alt={text} shape="circle" size={40} />
+        <div className="flex flex-col">
+          <span>{text}</span>
+          <span>{record.email}</span>
+        </div>
+      </div>
+    ),
+  },
+
+  {
+    title: "Phone Number",
+    dataIndex: "phoneNumber",
+    key: "phoneNumber",
+  },
+  {
+    title: "Address",
+    dataIndex: "address",
+    key: "address",
+  },
+  {
+    title: "Spent",
+    dataIndex: "spent",
+    key: "spent",
+  },
+  {
+    key: "action",
+    render: (text, record) => (
+      <PopOver
+        onEdit={() => handleEdit(record)}
+        onBan={() => handleBan(record)} // Pass the handleBan function
+      />
+    ),
+  },
+];
+
+const data = [
+  {
+    key: 1,
+    customerName: "John Doe",
+    email: "johndoe@gmail.com",
+    phoneNumber: "+1234567890",
+    address: "10 Warehouse Road, Apapa, Lagos",
+    spent: "$5000",
+    avatar: "",
+    banned: false, // Add banned field
+  },
+  {
+    key: 2,
+    customerName: "Jane Smith",
+    email: "janesmith@gmail.com",
+    phoneNumber: "+1234567891",
+    address: "15 Broad Street, Lagos",
+    spent: "$4500",
+    avatar: "",
+    banned: false, // Add banned field
+  },
+];

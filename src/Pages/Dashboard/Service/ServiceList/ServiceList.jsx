@@ -13,46 +13,66 @@ import {
   PlusOutlined,
   CloudUploadOutlined,
   CloseCircleOutlined,
-  EditOutlined,
-  DeleteOutlined,
 } from "@ant-design/icons";
-import ButtonEDU from "../../../components/common/ButtonEDU";
-import gift from "../../../assets/gtdandy/gift.png";
+import ButtonEDU from "../../../../components/common/ButtonEDU";
+
 import { FiEdit2 } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import GetPageName from "../../../../components/common/GetPageName";
 
-function Category() {
+function ServiceList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+
   const [form] = Form.useForm();
   const [uploadedImage, setUploadedImage] = useState(null);
   const [editingKey, setEditingKey] = useState(null);
+  const [searchText, setSearchText] = useState("");
   const [tableData, setTableData] = useState([
-    { key: "1", name: "John Brown", serial: 1, sliderimg: gift },
-    { key: "2", name: "Jim Green", serial: 2, sliderimg: gift },
-    { key: "3", name: "Joe Black", serial: 3, sliderimg: gift },
+    {
+      key: "1",
+      serial: 1,
+      category: "Photography",
+      icon: "",
+      totalServices: 20,
+      priceRange: "$50 - $500",
+    },
+    {
+      key: "2",
+      serial: 2,
+      category: "Graphic Design",
+      icon: "",
+      totalServices: 15,
+      priceRange: "$30 - $300",
+    },
+    {
+      key: "3",
+      serial: 3,
+      category: "Web Development",
+      icon: "",
+      totalServices: 25,
+      priceRange: "$100 - $1000",
+    },
     {
       key: "4",
       serial: 4,
-      sliderimg: gift,
-      name: "Mountain Escape",
+      category: "Marketing",
+      icon: "",
+      totalServices: 10,
+      priceRange: "$50 - $700",
     },
     {
       key: "5",
       serial: 5,
-      sliderimg: gift,
-      name: "Sunset Glow",
-    },
-    {
-      key: "6",
-      serial: 6,
-      sliderimg: gift,
-      name: "City Lights",
+      category: "Writing & Editing",
+      icon: "",
+      totalServices: 18,
+      priceRange: "$20 - $400",
     },
   ]);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deletingRecord, setDeletingRecord] = useState(null);
-
+  const [filteredData, setFilteredData] = useState(tableData);
   const showModal = () => {
     setIsEditing(false);
     setIsModalOpen(true);
@@ -65,6 +85,26 @@ function Category() {
     setEditingKey(null);
   };
 
+  const handleSearch = (e) => {
+    const value = e.target.value.toLowerCase();
+    setSearchText(value);
+
+    if (!value) {
+      setFilteredData(tableData); // Reset to full list when search is cleared
+      return;
+    }
+
+    const newFilteredData = tableData.filter((item) =>
+      Object.keys(item).some(
+        (key) =>
+          key !== "icon" && // Exclude 'icon'
+          key !== "serial" && // Exclude 'serial'
+          String(item[key]).toLowerCase().includes(value)
+      )
+    );
+
+    setFilteredData(newFilteredData);
+  };
   const handleFormSubmit = (values) => {
     if (!uploadedImage && !isEditing) {
       message.error("Please upload an image!");
@@ -78,7 +118,7 @@ function Category() {
           ? {
               ...item,
               name: values.name,
-              sliderimg: uploadedImage || item.sliderimg,
+              icon: uploadedImage || item.icon,
             }
           : item
       );
@@ -92,7 +132,7 @@ function Category() {
           key: (tableData.length + 1).toString(),
           name: values.name,
           serial: tableData.length + 1,
-          sliderimg: uploadedImage,
+          icon: uploadedImage,
         },
       ]);
       message.success("Slider added successfully!");
@@ -121,7 +161,7 @@ function Category() {
   const handleEdit = (record) => {
     setIsEditing(true);
     setEditingKey(record.key);
-    setUploadedImage(record.sliderimg);
+    setUploadedImage(record.icon);
     form.setFieldsValue({ name: record.name });
     setIsModalOpen(true);
   };
@@ -154,15 +194,25 @@ function Category() {
       ),
     },
     {
-      title: "Slider Image",
-      dataIndex: "sliderimg",
-      key: "sliderimg",
-      render: (sliderimg) => <img width={60} src={sliderimg} alt="slider" />,
+      title: "Category",
+      dataIndex: "category",
+      key: "category",
     },
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Icon",
+      dataIndex: "icon",
+      key: "icon",
+      render: (icon) => <img width={60} src={icon} alt="slider" />,
+    },
+    {
+      title: "Total Services",
+      dataIndex: "totalServices",
+      key: "totalServices",
+    },
+    {
+      title: "Price Range",
+      dataIndex: "priceRange",
+      key: "priceRange",
     },
     {
       title: "Actions",
@@ -185,42 +235,55 @@ function Category() {
   ];
 
   return (
-    <div className="px-10 py-5">
+    <div>
       <div className="flex justify-between items-center py-5">
-        <h1 className="text-[20px] font-medium">Category</h1>
-        <button
-          className="bg-gtdandy text-white px-4 py-2.5 rounded-md flex items-center"
-          onClick={showModal}
-        >
-          <PlusOutlined className="mr-2" />
-          Add New
-        </button>
+        <h1 className="text-[20px] font-medium">{GetPageName()}</h1>
+        <div className="flex gap-4">
+          <Input
+            placeholder="Search in all columns"
+            value={searchText}
+            onChange={handleSearch}
+            className="w-36 h-12"
+          />
+          <button
+            className="bg-smart text-white px-4 py-2.5 rounded-md flex items-center"
+            onClick={showModal}
+          >
+            <PlusOutlined className="mr-2" />
+            Add New
+          </button>
+        </div>
       </div>
 
       <ConfigProvider
         theme={{
           components: {
             Table: {
-              rowSelectedBg: "#fef9eb",
-              headerBg: "#fef9eb",
-              cellFontSize: "17px",
+              rowSelectedBg: "#f6f6f6",
+              headerBg: "#f6f6f6",
+              headerSplitColor: "none",
+              headerBorderRadius: "none",
+              cellFontSize: "16px",
             },
             Pagination: {
-              itemActiveBg: "#FFC301",
-              itemBg: "black",
-              borderRadius: "50px",
-              colorText: "white",
+              borderRadius: "3px",
+              itemActiveBg: "#18a0fb",
+              // itemBg: "#000000",
             },
           },
         }}
       >
         <Table
           columns={columns}
-          dataSource={tableData}
+          dataSource={filteredData}
           pagination={{
-            pageSizeOptions: [5, 10, 15, 20],
+            // onChange: cancel,
             defaultPageSize: 5,
-            position: ["bottomCenter"],
+            position: ["bottomRight"],
+            size: "default",
+            total: 50,
+            showSizeChanger: true,
+            showQuickJumper: true,
           }}
         />
       </ConfigProvider>
@@ -247,7 +310,7 @@ function Category() {
 
       {/* Modal Form */}
       <Modal
-        title={isEditing ? "Edit Category" : "Add Category"}
+        title={isEditing ? "Edit Category" : "Add Service Category"}
         open={isModalOpen}
         onCancel={handleCancel}
         centered
@@ -305,4 +368,4 @@ function Category() {
   );
 }
 
-export default Category;
+export default ServiceList;
