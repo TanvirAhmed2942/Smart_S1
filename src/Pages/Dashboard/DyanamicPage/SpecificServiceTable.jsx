@@ -11,16 +11,15 @@ import {
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import { FiEdit2 } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import GetPageName from "../../../../components/common/GetPageName";
-
-// Import the modal components
-import AddEditCategoryModal from "./EditCategoryModal";
-import DeleteCategoryModal from "./DeleteCategoryModal";
 import { HiDotsVertical } from "react-icons/hi";
-import cleaning from "../../../../assets/cleaning.png";
+import cleaning from "../../../assets/cleaning.png";
 import { IoEye } from "react-icons/io5";
 import { Link } from "react-router-dom";
-function CategoryList() {
+import DeleteServiceModal from "../Service/ServiceList/DeleteServiceModal";
+import EditSpecServiceModal from "./EditSpecServiceModal";
+import GetPageName from "../../../components/common/GetPageName";
+
+function SpecificServiceTable() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [form] = Form.useForm();
@@ -29,54 +28,45 @@ function CategoryList() {
   const [tableData, setTableData] = useState([
     {
       key: "1",
-      category: "Mountain Escape",
+      serviceName: "Car Cleaning",
       serial: 1,
       icon: cleaning,
       totalService: "20",
-      priceRange: "$100 - $200",
+      price: "$100 - $200",
     },
     {
       key: "2",
-      category: "Sunset Glow",
+      serviceName: "Pool Cleaning",
       serial: 2,
       icon: cleaning,
       totalService: "15",
-      priceRange: "$50 - $150",
+      price: "$50 - $150",
     },
     {
       key: "3",
-      category: "City Lights",
+      serviceName: "Garden Cleaning",
       serial: 3,
       icon: cleaning,
       totalService: "30",
-      priceRange: "$200 - $300",
+      price: "$200 - $300",
     },
     {
       key: "4",
-      category: "Forest Adventure",
+      serviceName: "House Cleaning",
       serial: 4,
       icon: cleaning,
       totalService: "25",
-      priceRange: "$150 - $250",
+      price: "$150 - $250",
     },
     {
       key: "5",
-      category: "Ocean Breeze",
+      serviceName: "Kitchen Cleaning",
       serial: 5,
       icon: cleaning,
-      totalService: "18",
-      priceRange: "$80 - $180",
-    },
-    {
-      key: "6",
-      category: "Desert Oasis",
-      serial: 6,
-      icon: cleaning,
-      totalService: "22",
-      priceRange: "$120 - $220",
+      price: "$80 - $180",
     },
   ]);
-  const [filteredData, setFilteredData] = useState(tableData); // state for filtered data
+  const [filteredData, setFilteredData] = useState(tableData);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deletingRecord, setDeletingRecord] = useState(null);
 
@@ -99,46 +89,41 @@ function CategoryList() {
     }
 
     if (isEditing) {
-      // Update existing row
       const updatedData = tableData.map((item) =>
         item.key === editingKey
           ? {
               ...item,
-              category: values.category,
-              icon: uploadedImage || item.icon, // Retain old image if no new one is uploaded
-              totalService: values.totalService,
-              priceRange: values.priceRange,
+              serviceName: values.serviceName,
+              icon: uploadedImage || item.icon,
+              price: values.price,
             }
           : item
       );
       setTableData(updatedData);
-      setFilteredData(updatedData); // Update filtered data too
-      message.success("Slider updated successfully!");
+      setFilteredData(updatedData);
+      message.success("Service updated successfully!");
     } else {
-      // Add new row
       setTableData([
         ...tableData,
         {
           key: (tableData.length + 1).toString(),
-          category: values.category,
+          serviceName: values.serviceName,
           serial: tableData.length + 1,
-          icon: uploadedImage, // Ensure uploaded image is set
-          totalService: values.totalService,
-          priceRange: values.priceRange,
+          icon: uploadedImage,
+          price: values.price,
         },
       ]);
       setFilteredData([
         ...filteredData,
         {
           key: (tableData.length + 1).toString(),
-          category: values.category,
+          serviceName: values.serviceName,
           serial: tableData.length + 1,
           icon: uploadedImage,
-          totalService: values.totalService,
-          priceRange: values.priceRange,
+          price: values.price,
         },
       ]);
-      message.success("Slider added successfully!");
+      message.success("Service added successfully!");
     }
 
     handleCancel();
@@ -166,23 +151,22 @@ function CategoryList() {
     setEditingKey(record.key);
     setUploadedImage(record.icon);
     form.setFieldsValue({
-      category: record.category,
-      totalService: record.totalService,
-      priceRange: record.priceRange,
+      serviceName: record.serviceName,
+      price: record.price,
     });
     setIsModalOpen(true);
   };
 
-  const handleDelete = (key, category) => {
-    setDeletingRecord({ key, category });
+  const handleDelete = (key) => {
+    setDeletingRecord(key);
     setIsDeleteModalOpen(true);
   };
 
   const onConfirmDelete = () => {
-    const newData = tableData.filter((item) => item.key !== deletingRecord.key);
+    const newData = tableData.filter((item) => item.key !== deletingRecord);
     setTableData(newData);
-    setFilteredData(newData); // Update filtered data after delete
-    message.success("Slider deleted successfully!");
+    setFilteredData(newData);
+    message.success("Service deleted successfully!");
     setIsDeleteModalOpen(false);
   };
 
@@ -195,11 +179,10 @@ function CategoryList() {
     const lowercasedValue = value.toLowerCase();
     const filtered = tableData.filter(
       (item) =>
-        item.category.toLowerCase().includes(lowercasedValue) ||
-        item.totalService.toLowerCase().includes(lowercasedValue) ||
-        item.priceRange.toLowerCase().includes(lowercasedValue)
+        item.serviceName.toLowerCase().includes(lowercasedValue) ||
+        item.price.toLowerCase().includes(lowercasedValue)
     );
-    setFilteredData(filtered); // Set filtered data
+    setFilteredData(filtered);
   };
 
   const columns = [
@@ -207,47 +190,29 @@ function CategoryList() {
       title: "Sl",
       dataIndex: "serial",
       key: "serial",
-      render: (serial) => (
-        <p className="font-bold text-black text-[16px]">
-          {serial < 10 ? "0" + serial : serial}
-        </p>
-      ),
+      render: (serial) => <p className="font-bold">{serial}</p>,
     },
     {
-      title: "Category",
-      dataIndex: "category",
-      key: "category",
+      title: "Service Name",
+      dataIndex: "serviceName",
+      key: "serviceName",
     },
     {
       title: "Icon",
       dataIndex: "icon",
       key: "icon",
-      render: (icon) => <img width={60} src={icon} alt="slider" />,
+      render: (icon) => <img width={60} src={icon} alt="service" />,
     },
     {
-      title: "Total Service",
-      dataIndex: "totalService",
-      key: "totalService",
-    },
-    {
-      title: "Price Range",
-      dataIndex: "priceRange",
-      key: "priceRange",
+      title: "Price",
+      dataIndex: "price",
+      key: "price",
     },
     {
       title: "Actions",
       key: "actions",
       render: (_, record) => (
         <div className="flex items-center gap-2">
-          <Link
-            to={`/${record.category
-              .toLowerCase()
-              .replace(/\s+/g, "-")}-services`}
-          >
-            <button className="pt-2">
-              <IoEye size={23} />
-            </button>
-          </Link>
           <Popover
             content={
               <div className="flex items-center gap-2">
@@ -261,7 +226,7 @@ function CategoryList() {
                 <button
                   className="bg-red-400/50 hover:bg-red-400 p-2 rounded-lg"
                   type="link"
-                  onClick={() => handleDelete(record.key, record.category)}
+                  onClick={() => handleDelete(record.key)}
                 >
                   <RiDeleteBin6Line size={15} />
                 </button>
@@ -285,7 +250,7 @@ function CategoryList() {
         <h1 className="text-[20px] font-medium">{GetPageName()}</h1>
         <div className="flex gap-3">
           <Input
-            placeholder="Search by Category, Total Service, or Price Range"
+            placeholder="Search by Service Name or Price"
             onChange={(e) => handleSearch(e.target.value)}
             prefix={<SearchOutlined />}
             style={{ width: 200 }}
@@ -307,17 +272,6 @@ function CategoryList() {
             Table: {
               rowSelectedBg: "#f6f6f6",
               headerBg: "#f6f6f6",
-              headerSplitColor: "none",
-              headerBorderRadius: "none",
-            },
-            Pagination: {
-              borderRadius: "3px",
-              itemActiveBg: "#18a0fb",
-            },
-            Button: {
-              defaultHoverBg: "#18a0fb ",
-              defaultHoverColor: "white",
-              defaultHoverBorderColor: "#18a0fb ",
             },
           },
         }}
@@ -329,24 +283,24 @@ function CategoryList() {
           pagination={{
             defaultPageSize: 5,
             position: ["bottomRight"],
-            size: "default",
-            total: 50,
             showSizeChanger: true,
             showQuickJumper: true,
           }}
         />
       </ConfigProvider>
 
-      <AddEditCategoryModal
+      <EditSpecServiceModal
         isModalOpen={isModalOpen}
-        handleCancel={handleCancel}
-        handleFormSubmit={handleFormSubmit}
-        form={form}
+        setIsModalOpen={setIsModalOpen}
         uploadedImage={uploadedImage}
+        setUploadedImage={setUploadedImage}
+        form={form}
+        handleFormSubmit={handleFormSubmit}
+        handleCancel={handleCancel}
         handleImageUpload={handleImageUpload}
         isEditing={isEditing}
       />
-      <DeleteCategoryModal
+      <DeleteServiceModal
         isDeleteModalOpen={isDeleteModalOpen}
         deletingRecord={deletingRecord}
         onConfirmDelete={onConfirmDelete}
@@ -356,4 +310,4 @@ function CategoryList() {
   );
 }
 
-export default CategoryList;
+export default SpecificServiceTable;

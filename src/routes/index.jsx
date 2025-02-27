@@ -26,6 +26,7 @@ import PushNotification from "../Pages/Dashboard/PushNotification/PushNotificati
 import BookingList from "../Pages/Dashboard/Booking/BookingList.jsx";
 import CategoryList from "../Pages/Dashboard/Service/CategoryList/CategoryList.jsx";
 import ServiceList from "../Pages/Dashboard/Service/ServiceList/ServiceList.jsx";
+import SpecificService from "../Pages/Dashboard/DyanamicPage/SpecificService.jsx";
 
 const router = createBrowserRouter([
   {
@@ -78,7 +79,10 @@ const router = createBrowserRouter([
         path: "/terms-and-conditions",
         element: <TermsAndCondition />,
       },
-
+      {
+        path: "/:serviceType-services", // Dynamic route for services
+        element: <SpecificService />, // Services component
+      },
       {
         path: "/profile",
         element: <AdminProfile />,
