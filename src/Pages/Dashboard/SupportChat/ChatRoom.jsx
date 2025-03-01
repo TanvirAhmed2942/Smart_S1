@@ -90,7 +90,15 @@ function ChatRoom() {
       </div>
 
       {/* Messages */}
-      <div className="flex flex-col gap-3 p-4 flex-grow overflow-y-auto">
+      <div
+        className="flex flex-col gap-3 p-4 flex-grow overflow-y-auto  [&::-webkit-scrollbar]:w-1
+  [&::-webkit-scrollbar-track]:rounded-full
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-thumb]:rounded-full
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  dark:[&::-webkit-scrollbar-track]:bg-slate-400
+  dark:[&::-webkit-scrollbar-thumb]:bg-slate-200"
+      >
         {messages.map((msg) => (
           <div
             key={msg.id}
