@@ -8,7 +8,7 @@ import { LuClipboardList } from "react-icons/lu";
 import { TbBellBolt, TbDashboard, TbListDetails } from "react-icons/tb";
 import { HiUsers } from "react-icons/hi";
 import { RxDashboard } from "react-icons/rx";
-import { PiWallet } from "react-icons/pi";
+import { PiMessengerLogoBold, PiWallet } from "react-icons/pi";
 import { FiLogOut, FiUsers } from "react-icons/fi";
 import { BiSolidCategoryAlt } from "react-icons/bi";
 import {
@@ -138,6 +138,11 @@ const Sidebar = ({ isCollapsed }) => {
     //     icon: <BiSolidCategory size={24} />,
     //     label: <Link to="/sub-category" >Sub Category</Link>
     // },
+    {
+      key: "/support-chat",
+      icon: <PiMessengerLogoBold size={24} />,
+      label: <Link to="/support-chat">Support Chat</Link>,
+    },
     {
       key: "/pushnotification",
       icon: <TbBellBolt size={24} />,

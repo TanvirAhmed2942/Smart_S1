@@ -27,6 +27,8 @@ import BookingList from "../Pages/Dashboard/Booking/BookingList.jsx";
 import CategoryList from "../Pages/Dashboard/Service/CategoryList/CategoryList.jsx";
 import ServiceList from "../Pages/Dashboard/Service/ServiceList/ServiceList.jsx";
 import SpecificService from "../Pages/Dashboard/DyanamicPage/SpecificService.jsx";
+import SupportChat from "../Pages/Dashboard/SupportChat/SupportChat.jsx";
+import ChatRoom from "../Pages/Dashboard/SupportChat/ChatRoom.jsx";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +58,20 @@ const router = createBrowserRouter([
       {
         path: "/booking-list",
         element: <BookingList />,
+      },
+      {
+        path: "/support-chat",
+        element: <SupportChat />,
+      },
+      {
+        path: "/chat/:chatRoomId", // Change to "/chat/:chatRoomId"
+        element: <SupportChat />, // This should be your layout component
+        children: [
+          {
+            path: ":chatRoomId", // Child route for the selected chat user
+            element: <ChatRoom />,
+          },
+        ],
       },
       {
         path: "/pushnotification",
