@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LuClipboardList } from "react-icons/lu";
 import { TbBellBolt, TbDashboard, TbListDetails } from "react-icons/tb";
-import { HiUsers } from "react-icons/hi";
+import { HiOutlineUsers, HiUsers } from "react-icons/hi";
 import { RxDashboard } from "react-icons/rx";
 import { PiMessengerLogoBold, PiWallet } from "react-icons/pi";
 import { FiLogOut, FiUsers } from "react-icons/fi";
@@ -16,7 +16,7 @@ import {
   RiMoneyDollarCircleLine,
   RiSettings5Line,
 } from "react-icons/ri";
-import { MdHandyman } from "react-icons/md";
+import { MdHandyman, MdOutlineHomeRepairService } from "react-icons/md";
 // import qilocoLogo from "../../assets/quiloco/qilocoLogo.png";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 import { MdHomeRepairService } from "react-icons/md";
@@ -52,12 +52,12 @@ const Sidebar = ({ isCollapsed }) => {
     },
     {
       key: "subMenuSetting2",
-      icon: <HiUsers size={24} className="text-black" />,
+      icon: <HiOutlineUsers size={24} className="text-black" />,
       label: "User",
       children: [
         {
           key: "/customer-list",
-          icon: <FiUsers size={23} />,
+          icon: <HiUsers size={23} />,
           label: isCollapsed ? (
             <Link to="/customer-list">customer</Link>
           ) : (
@@ -96,7 +96,7 @@ const Sidebar = ({ isCollapsed }) => {
     },
     {
       key: "subMenuSetting3",
-      icon: <MdHomeRepairService size={24} className="text-black" />,
+      icon: <MdOutlineHomeRepairService size={24} className="text-black" />,
       label: "Service",
       children: [
         {

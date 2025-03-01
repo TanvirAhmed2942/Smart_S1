@@ -107,7 +107,7 @@ export default function FaqCollapse() {
     }));
 
   return (
-    <div className="min-h-[90vh] ">
+    <div className="h-full ">
       <HeadFaq showModal={showAddModal} />
 
       <Collapse

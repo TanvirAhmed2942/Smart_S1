@@ -6,7 +6,7 @@ import ChatHeader from "./ChatHeader";
 
 function SupportChat() {
   return (
-    <div className="w-full flex relative overflow-hidden">
+    <div className="w-full flex relative overflow-hidden rounded-lg">
       {/* Sidebar */}
       <div className="w-[25%] h-[800px] bg-slate-300">
         <SidebarContent />

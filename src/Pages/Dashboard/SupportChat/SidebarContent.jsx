@@ -12,8 +12,8 @@ function SidebarContent() {
         <p className="text-[16px] font-semibold text-black">Support Chat</p>
         <Input
           prefix={<IoIosSearch />}
-          placeholder="Basic usage"
-          className="h-10 w-[90%]"
+          placeholder="Search..."
+          className="h-10 w-[90%] gap-2"
         />
         <p className="text-[#343A40] font-semibold">Recent</p>
       </div>
