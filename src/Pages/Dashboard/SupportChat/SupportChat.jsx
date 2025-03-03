@@ -6,18 +6,18 @@ import ChatHeader from "./ChatHeader";
 
 function SupportChat() {
   return (
-    <div className="w-full flex relative overflow-hidden rounded-lg">
+    <div className="w-full h-screen flex relative rounded-lg">
       {/* Sidebar */}
-      <div className="w-[25%] h-[800px] bg-slate-300">
+      <div className="w-[25%] h-[87%] bg-slate-300  rounded-l-lg">
         <SidebarContent />
       </div>
 
       {/* Chat Area */}
-      <div className="w-[75%] bg-slate-200">
+      <div className="w-[75%] bg-green-400-200">
         {/* <div className="h-[100px] bg-blue-400">
           <ChatHeader />
         </div> */}
-        <div className="h-[800px] bg-slate-500">
+        <div className="h-[87%] bg-slate-200 rounded-r-lg">
           <ChatRoom />
           {/* <Outlet /> */}
         </div>

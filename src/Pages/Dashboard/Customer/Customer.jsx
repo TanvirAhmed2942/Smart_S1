@@ -21,7 +21,7 @@ function Customer() {
       user.customerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.phoneNumber.includes(searchQuery) ||
-      user.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      // user.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.spent.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -96,13 +96,14 @@ function Customer() {
             placeholder="Search by Name, Email or Phone"
             onChange={(e) => handleSearch(e.target.value)}
             prefix={<SearchOutlined />}
-            style={{ width: 200, height: 40 }}
+            className="h-9 gap-2"
+            allowClear
           />
           {selectedRowKeys.length > 0 && (
             <Button
               icon={<DeleteOutlined />}
               onClick={handleDeleteSelected}
-              className="bg-smart hover:bg-smart text-white border-none h-10"
+              className="bg-smart hover:bg-smart text-white border-none h-9"
             >
               Delete Selected
             </Button>

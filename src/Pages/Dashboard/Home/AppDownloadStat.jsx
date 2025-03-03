@@ -92,9 +92,11 @@ function AppDownloadStat() {
       <h2 className="text-lg font-semibold text-gray-700">
         App Download Stats
       </h2>
-      <p className="text-sm text-gray-500">Downloaded by operating system</p>
+      <p className="text-sm text-gray-500 -mt-1">
+        Downloaded by operating system
+      </p>
 
-      <div className="relative flex justify-center items-center mt-4">
+      <div className="relative flex justify-center items-center mt-1">
         <ResponsiveContainer width={180} height={180}>
           <PieChart>
             <Tooltip
@@ -124,7 +126,7 @@ function AppDownloadStat() {
         {/* Centered Total Downloads Text */}
         <div className="absolute text-center">
           <p className="text-sm text-gray-500">Total</p>
-          <p className="text-2xl font-bold text-gray-800">
+          <p className="text-xl font-bold text-gray-800">
             {totalDownloads.toLocaleString()}
           </p>
         </div>

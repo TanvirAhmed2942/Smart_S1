@@ -51,7 +51,7 @@ export default function RevenueAnalysis() {
         <PickDate />
       </div>
 
-      <ResponsiveContainer width="100%" height={220}>
+      <ResponsiveContainer width="100%" height={205}>
         <AreaChart
           data={data}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
@@ -67,8 +67,8 @@ export default function RevenueAnalysis() {
             strokeWidth={0.2}
             vertical={false}
           />
-          <XAxis dataKey="name" />
-          <YAxis hide={false} />
+          <XAxis dataKey="name" style={{ fontSize: "14px" }} />
+          <YAxis hide={false} style={{ fontSize: "14px" }} />
           {/* <Tooltip cursor={{ fill: "transparent" }} /> */}
           <Tooltip
             content={<CustomTooltip />}

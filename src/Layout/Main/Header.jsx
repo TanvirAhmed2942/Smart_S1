@@ -175,7 +175,7 @@ const Header = ({ toggleSidebar }) => {
       <Flex
         align="center"
         justify="between"
-        className="w-100% h-[100px] px-4 py-2 shadow-sm overflow-auto text-slate-700 bg-white"
+        className="w-100% min-h-[85px] px-4 py-2 shadow-sm overflow-auto text-slate-700 bg-white"
       >
         <div>
           <CgMenu

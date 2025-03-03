@@ -76,7 +76,7 @@ function CustomerServiceChart() {
             htmlFor="serviceProviderRadio"
             className="flex items-center cursor-pointer"
           >
-            <span className="inline-block w-4 h-4 mr-2 bg-[#b7e2fe] rounded"></span>
+            <span className="inline-block w-4 mr-2 bg-[#b7e2fe] rounded"></span>
             Service Provider
           </label>
         </div>
@@ -111,7 +111,7 @@ function CustomerServiceChart() {
         <PickDate />
       </div>
 
-      <div className="w-full h-full py-4">
+      <div className="w-full h-full py-1">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={data}
@@ -122,8 +122,8 @@ function CustomerServiceChart() {
               strokeWidth={0.2}
               vertical={false}
             />
-            <XAxis dataKey="month" />
-            <YAxis hide={false} />
+            <XAxis dataKey="month" style={{ fontSize: "14px" }} />
+            <YAxis hide={false} style={{ fontSize: "14px" }} />
             <Tooltip
               content={<CustomTooltip />}
               isAnimationActive={true}

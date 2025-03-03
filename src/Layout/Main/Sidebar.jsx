@@ -254,10 +254,10 @@ const Sidebar = ({ isCollapsed }) => {
       }`}
     >
       <Link to="/" className="flex items-center justify-center py-4 text-white">
-        <div className="w-full flex items-center justify-center bg-quilocoP px-4 py-3 gap-3 rounded-lg">
-          <TbDashboard size={30} className="text-sky-500" />
+        <div className="w-full flex items-center justify-center bg-quilocoP px-4 py-3 -mt-1.5 gap-3 rounded-lg">
+          <TbDashboard size={40} className="text-sky-500" />
           {!isCollapsed && (
-            <p className="text-xl text-sky-500 font-semibold">Dashboard</p>
+            <p className="text-2xl text-sky-500 font-semibold ">Dashboard</p>
           )}
           {/* <img src={"qilocoLogo"} /> */}
         </div>

@@ -37,7 +37,7 @@ function Setting() {
         defaultActiveKey="1"
         items={items}
         onChange={onChange}
-        className="px-10 py-5 font-medium"
+        className="py-8 font-medium"
       />
     </ConfigProvider>
   );

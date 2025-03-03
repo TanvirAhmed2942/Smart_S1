@@ -48,8 +48,8 @@ function AdminPassword() {
       <Card
         title="Change Password"
         bordered={false}
-        style={{ width: 850, height: 470 }}
-        className="w-full h-full flex flex-col text-white shadow-[0px_10px_100px_3px_rgba(0,_0,_0,_0.1)]"
+        // style={{ width: 850, height: 500 }}
+        className="w-2/5 h-full flex flex-col text-white shadow-[0px_10px_100px_3px_rgba(0,_0,_0,_0.1)]"
       >
         <ConfigProvider
           theme={{
@@ -79,7 +79,7 @@ function AdminPassword() {
             >
               <Input.Password
                 placeholder="Enter current password"
-                className="h-12"
+                className="h-10"
                 iconRender={(visible) =>
                   visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                 }
@@ -101,7 +101,7 @@ function AdminPassword() {
             >
               <Input.Password
                 placeholder="Enter new password"
-                className="h-12"
+                className="h-10"
                 iconRender={(visible) =>
                   visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                 }
@@ -131,7 +131,7 @@ function AdminPassword() {
             >
               <Input.Password
                 placeholder="Confirm new password"
-                className="h-12"
+                className="h-10"
                 iconRender={(visible) =>
                   visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                 }
@@ -140,8 +140,12 @@ function AdminPassword() {
 
             {/* Buttons: Cancel & Save */}
             <Flex justify="flex-end" className="w-[80%] gap-4">
-              <ButtonEDU actionType="cancel" onClick={handleCancel} />
-              <ButtonEDU actionType="save" onClick={handleSave} />
+              <ButtonEDU actionType="cancel" onClick={handleCancel}>
+                Cancel
+              </ButtonEDU>
+              <ButtonEDU actionType="save" onClick={handleSave}>
+                Save
+              </ButtonEDU>
             </Flex>
           </Form>
         </ConfigProvider>

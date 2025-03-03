@@ -43,9 +43,9 @@ const stats = [
 export const Card = ({ item }) => {
   return (
     <div
-      className={`flex w-full items-center justify-evenly h-36 rounded-xl bg-white gap-10 ${item.bg}`}
+      className={`flex w-full items-center justify-evenly h-24 rounded-xl bg-white gap-10 ${item.bg}`}
     >
-      <div className="h-[80%] py-3 flex flex-col items-start justify-between">
+      <div className="h-[80%] py-1.5 flex flex-col items-start justify-between">
         <p>{item.label}</p>
         <p className="text-[24px] font-bold">{item.value}</p>
         {item.percent > 0 ? (
@@ -80,7 +80,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="w-full h-[350px]  bg-white rounded-lg mt-4 relative flex flex-col justify-evenly">
+      <div className="w-full h-[330px]  bg-white rounded-lg mt-4 relative flex flex-col justify-evenly">
         <CustomerServiceChart />
       </div>
       <div className="w-full h-[300px] mt-4 flex items-center justify-between bg-transparent rounded-lg">

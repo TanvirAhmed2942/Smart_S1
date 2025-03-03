@@ -73,12 +73,19 @@ function Transaction() {
   const handleSearch = (value) => setSearchQuery(value);
 
   // Filter data based on search query
-  const filteredData = data.filter((transaction) =>
-    Object.values(transaction).some(
-      (value) =>
+  const filteredData = data.filter(({ customername, ...transaction }) =>
+    Object.entries(transaction).some(([key, value]) => {
+      if (key === "date") {
+        return new Date(value).toLocaleDateString().includes(searchQuery);
+      }
+      if (key === "ammount") {
+        return value.toString().includes(searchQuery);
+      }
+      return (
         typeof value === "string" &&
         value.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+      );
+    })
   );
   // Handle row selection
   const rowSelection = {
@@ -248,7 +255,9 @@ function Head({ onSearch, selectedRowKeys, handleDelete, filteredData }) {
             placeholder="Search by Recipient, Ocation, Price, or Status"
             onChange={(e) => onSearch(e.target.value)}
             prefix={<SearchOutlined />}
-            style={{ width: 200, height: 40 }}
+            // style={{ width: 200, height: 41 }}
+            className="h-9 gap-2"
+            allowClear
           />
 
           {/* Show delete button only if more than one row is selected */}
@@ -257,7 +266,7 @@ function Head({ onSearch, selectedRowKeys, handleDelete, filteredData }) {
             <Button
               onClick={handleDelete}
               icon={<DeleteOutlined />}
-              className="bg-[#18a0fb] text-white border-none h-10"
+              className="bg-[#18a0fb] text-white border-none h-9"
             >
               {selectedRowKeys.length === filteredData.length
                 ? "Delete All"

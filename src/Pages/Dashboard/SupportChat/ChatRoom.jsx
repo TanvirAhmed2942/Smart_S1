@@ -77,7 +77,7 @@ function ChatRoom() {
   };
 
   return (
-    <div className="h-full flex flex-col bg-white">
+    <div className="h-full flex flex-col bg-white rounded-r-lg">
       {/* Header */}
       <div className="flex items-center gap-3 p-4 border-b shadow-sm">
         <Avatar src={user.avatar} size={50} />

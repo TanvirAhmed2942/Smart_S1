@@ -42,7 +42,7 @@ function PushNotification() {
   return (
     <>
       <div className="p-10 bg-white shadow-md rounded-md max-w-lg mx-auto">
-        <h1 className="text-[24px] font-semibold py-4 border-b">
+        <h1 className="text-[24px] font-semibold mb-4 border-b-2">
           Send Push Notification
         </h1>
         <ConfigProvider

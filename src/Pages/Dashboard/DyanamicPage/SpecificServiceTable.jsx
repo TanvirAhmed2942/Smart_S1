@@ -250,18 +250,18 @@ function SpecificServiceTable() {
         <h1 className="text-[20px] font-medium">{GetPageName()}</h1>
         <div className="flex gap-3">
           <Input
-            placeholder="Search by Service Name or Price"
+            placeholder="Search by Category, Total Service, or Price Range"
             onChange={(e) => handleSearch(e.target.value)}
             prefix={<SearchOutlined />}
             style={{ width: 200 }}
-            className="h-10"
+            className="h-9 gap-1.5"
           />
           <button
-            className="bg-smart h-10 text-white px-4 py-2.5 rounded-md flex items-center"
+            className="bg-smart h-9 text-white px-4 py-2.5 rounded-md flex items-center"
             onClick={showModal}
           >
-            <PlusOutlined className="mr-2" />
-            Add New
+            <PlusOutlined className="mr-2" size={5} />
+            <h1 className="text-[16px]">Add New</h1>
           </button>
         </div>
       </div>

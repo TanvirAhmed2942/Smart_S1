@@ -10,9 +10,6 @@ import {
   Form,
   ConfigProvider,
   message,
-  Dropdown,
-  Menu,
-  Select,
 } from "antd";
 import { MoreOutlined, DeleteFilled, EditFilled } from "@ant-design/icons";
 
@@ -197,7 +194,7 @@ const AdminList = () => {
               name="name"
               rules={[{ required: true, message: "Please enter Name" }]}
             >
-              <Input placeholder="Name" className="h-12" />
+              <Input placeholder="Name" className="h-10" />
             </Form.Item>
             <Form.Item
               label="Email"
@@ -224,24 +221,29 @@ const AdminList = () => {
                 },
               ]}
             >
-              <Input placeholder="Email" className="h-12" />
+              <Input placeholder="Email" className="h-10" />
             </Form.Item>
             <Form.Item
               label="Role"
               name="role"
-              rules={[{ required: true, message: "Please enter Role" }]}
+              value="Admin"
+              rules={[{ required: false, message: "Please enter Role" }]}
             >
-              <Input placeholder="Role" className="h-12" disabled />
+              <Input placeholder="Role" className="h-10" disabled />
             </Form.Item>
             <Form.Item label="Password" name="password">
-              <Input.Password placeholder="Set a Password" className="h-12" />
+              <Input.Password placeholder="Set a Password" className="h-10" />
             </Form.Item>
             <div className="flex justify-end gap-4 mt-4">
-              <ButtonEDU actionType="cancel" onClick={handleCancelAdd} />
+              <ButtonEDU actionType="cancel" onClick={handleCancelAdd}>
+                Cancel
+              </ButtonEDU>
               <ButtonEDU
                 actionType="save"
                 onClick={() => addFormRef.current?.submit()}
-              />
+              >
+                Save
+              </ButtonEDU>
             </div>
           </Form>
         </ConfigProvider>
@@ -270,7 +272,7 @@ const AdminList = () => {
               name="name"
               rules={[{ required: true, message: "Please enter Name" }]}
             >
-              <Input placeholder="Name" className="h-12" />
+              <Input placeholder="Name" className="h-10" />
             </Form.Item>
             <Form.Item
               label="Email"
@@ -297,22 +299,26 @@ const AdminList = () => {
                 },
               ]}
             >
-              <Input placeholder="Email" className="h-12" />
+              <Input placeholder="Email" className="h-10" />
             </Form.Item>
             <Form.Item
               label="Role"
               name="role"
               rules={[{ required: true, message: "Please enter Role" }]}
             >
-              <Input placeholder="Role" className="h-12" />
+              <Input placeholder="Role" className="h-10" />
             </Form.Item>
 
             <div className="flex justify-end gap-4 mt-4">
-              <ButtonEDU actionType="cancel" onClick={handleCancelEdit} />
+              <ButtonEDU actionType="cancel" onClick={handleCancelEdit}>
+                Cancel
+              </ButtonEDU>
               <ButtonEDU
                 actionType="save"
                 onClick={() => editFormRef.current?.submit()}
-              />
+              >
+                Save
+              </ButtonEDU>
             </div>
           </Form>
         </ConfigProvider>
@@ -344,8 +350,13 @@ const TableHead = ({ searchText, handleSearch, onAdd }) => {
         value={searchText}
         onChange={handleSearch}
         className="w-1/3 h-10"
+        allowClear
       />
-      <ButtonEDU actionType="add New" onClick={onAdd}></ButtonEDU>
+      <ButtonEDU actionType="add" onClick={onAdd}>
+        <div className="flex items-center justify-center gap-2">
+          <FaPlus size={15} /> Add new
+        </div>
+      </ButtonEDU>
     </div>
   );
 };
@@ -371,8 +382,12 @@ const DeleteAdmin = ({ name, onConfirm, onCancel }) => (
       <span className="font-bold ml-1">{name}</span>?
     </Flex>
     <div className="flex items-center justify-center gap-4">
-      <ButtonEDU actionType="cancel" onClick={onCancel} />
-      <ButtonEDU actionType="delete" onClick={onConfirm} />
+      <ButtonEDU actionType="cancel" onClick={onCancel}>
+        Cancel{" "}
+      </ButtonEDU>
+      <ButtonEDU actionType="delete" onClick={onConfirm}>
+        Delete
+      </ButtonEDU>
     </div>
   </Flex>
 );
