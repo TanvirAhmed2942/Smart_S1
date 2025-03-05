@@ -76,7 +76,7 @@ function CustomerServiceChart() {
             htmlFor="serviceProviderRadio"
             className="flex items-center cursor-pointer"
           >
-            <span className="inline-block w-4 mr-2 bg-[#b7e2fe] rounded"></span>
+            <span className="inline-block w-4 h-4 mr-2 bg-[#b6e2fd] rounded"></span>
             Service Provider
           </label>
         </div>

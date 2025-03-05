@@ -141,8 +141,12 @@ const Contact = () => {
             ))}
 
             <div className="flex justify-end gap-4">
-              <ButtonEDU actionType="cancel" onClick={handleCancel} />
-              <ButtonEDU actionType="update" htmlType="submit" />
+              <ButtonEDU actionType="cancel" onClick={handleCancel}>
+                Cancel
+              </ButtonEDU>
+              <ButtonEDU actionType="update" htmlType="submit">
+                Update
+              </ButtonEDU>
             </div>
           </Form>
         </div>

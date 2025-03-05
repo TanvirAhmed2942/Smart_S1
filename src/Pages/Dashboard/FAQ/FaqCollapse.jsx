@@ -175,8 +175,12 @@ export default function FaqCollapse() {
                   form.resetFields(); // Reset the form fields
                   setIsModalOpen(false); // Close the modal
                 }}
-              />
-              <ButtonEDU actionType="save" htmlType="submit" />
+              >
+                Cancel
+              </ButtonEDU>
+              <ButtonEDU actionType="save" htmlType="submit">
+                Save
+              </ButtonEDU>
             </div>
           </Form>
         </ConfigProvider>
@@ -195,8 +199,12 @@ export default function FaqCollapse() {
           <ButtonEDU
             actionType="cancel"
             onClick={() => setIsDeleteModalOpen(false)}
-          />
-          <ButtonEDU actionType="delete" onClick={handleDelete} />
+          >
+            Cancel
+          </ButtonEDU>
+          <ButtonEDU actionType="delete" onClick={handleDelete}>
+            Delete
+          </ButtonEDU>
         </div>
       </Modal>
     </div>
