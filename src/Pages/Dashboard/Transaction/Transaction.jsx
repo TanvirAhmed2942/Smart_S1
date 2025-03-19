@@ -6,6 +6,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoEye } from "react-icons/io5";
 
 import GetPageName from "../../../components/common/GetPageName";
+import { LuDownload } from "react-icons/lu";
 
 // UserAvatar Component
 const UserAvatar = ({ shop }) => (
@@ -273,6 +274,12 @@ function Head({ onSearch, selectedRowKeys, handleDelete, filteredData }) {
                 : "Delete Selected"}
             </Button>
           )}
+          <Button
+            icon={<LuDownload size={20} />}
+            className="bg-[#f1f1f1] hover:bg-smart text-black border h-9"
+          >
+            Export
+          </Button>
         </div>
       </div>
     </ConfigProvider>

@@ -4,24 +4,26 @@ import { CgTemplate } from "react-icons/cg";
 import { Menu } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { LuClipboardList } from "react-icons/lu";
+import { LuClipboardList, LuGift } from "react-icons/lu";
 import { TbBellBolt, TbDashboard, TbListDetails } from "react-icons/tb";
 import { HiOutlineUsers, HiUsers } from "react-icons/hi";
 import { RxDashboard } from "react-icons/rx";
 import { PiMessengerLogoBold, PiWallet } from "react-icons/pi";
 import { FiLogOut, FiUsers } from "react-icons/fi";
 import { BiSolidCategoryAlt } from "react-icons/bi";
+import { TfiLayoutSlider, TfiLayoutSliderAlt } from "react-icons/tfi";
 import {
   RiContactsBook3Line,
   RiMoneyDollarCircleLine,
   RiSettings5Line,
 } from "react-icons/ri";
-import { MdHandyman, MdOutlineHomeRepairService } from "react-icons/md";
-// import qilocoLogo from "../../assets/quiloco/qilocoLogo.png";
+import {
+  MdHandyman,
+  MdOutlineHomeRepairService,
+  MdOutlineReportProblem,
+} from "react-icons/md";
 import { MdOutlinePrivacyTip } from "react-icons/md";
-import { MdHomeRepairService } from "react-icons/md";
 import { IoDocumentTextOutline } from "react-icons/io5";
-import { icons } from "antd/es/image/PreviewGroup";
 
 const Sidebar = ({ isCollapsed }) => {
   const location = useLocation();
@@ -75,16 +77,15 @@ const Sidebar = ({ isCollapsed }) => {
         },
       ],
     },
-    // {
-    //   key: "/earnings",
-    //   icon: <TbDatabaseDollar size={24} />,
-    //   label: <Link to="/earnings">Earnings</Link>,
-    // },
-    // {
-    //   key: "/insight",
-    //   icon: <TbBulbFilled size={24} />,
-    //   label: <Link to="/insight">Insightful Tips</Link>,
-    // },
+    {
+      key: "/discount-coupon",
+      icon: <LuGift size={25} />,
+      label: isCollapsed ? (
+        <Link to="/discount-coupon">Discount Coupon</Link>
+      ) : (
+        <Link to="/discount-coupon">Discount Coupon</Link>
+      ),
+    },
     {
       key: "/transaction",
       icon: <PiWallet size={25} />,
@@ -92,6 +93,15 @@ const Sidebar = ({ isCollapsed }) => {
         <Link to="/transaction">Transaction</Link>
       ) : (
         <Link to="/transaction">Transaction</Link>
+      ),
+    },
+    {
+      key: "/reported-issues",
+      icon: <MdOutlineReportProblem size={25} />,
+      label: isCollapsed ? (
+        <Link to="/reported-issues">Report</Link>
+      ) : (
+        <Link to="/reported-issues">Report</Link>
       ),
     },
     {
@@ -190,6 +200,29 @@ const Sidebar = ({ isCollapsed }) => {
           label: (
             <Link to="/contact" className="text-white hover:text-white">
               Contact Us
+            </Link>
+          ),
+        },
+        {
+          key: "/slider",
+
+          icon: <TfiLayoutSlider size={24} />,
+          label: (
+            <Link to="/slider" className="text-white hover:text-white">
+              SLider
+            </Link>
+          ),
+        },
+        {
+          key: "/onboarding-screen",
+
+          icon: <TfiLayoutSliderAlt size={24} />,
+          label: (
+            <Link
+              to="/onboarding-screen"
+              className="text-white hover:text-white"
+            >
+              Onboarding Screen
             </Link>
           ),
         },

@@ -10,25 +10,25 @@ import VerifyOtp from "../Pages/Auth/VerifyOtp";
 import ResetPassword from "../Pages/Auth/ResetPassword";
 import NotFound from "../NotFound";
 import Notifications from "../Pages/Dashboard/Notifications";
-
 import AdminProfile from "../Pages/Dashboard/AdminProfile/AdminProfile";
-
 import TermsAndCondition from "../Pages/Dashboard/TermsAndCondition/TermsAndCondition";
 import ServiceProvidersList from "../Pages/Dashboard/ServiceProvider/ServiceProvidersList.jsx";
 import Transaction from "../Pages/Dashboard/Transaction/Transaction.jsx";
 import Setting from "../Pages/Dashboard/Setting/Setting.jsx";
 import FaqCollapse from "../Pages/Dashboard/FAQ/FaqCollapse.jsx";
 import Contact from "../Pages/Dashboard/Contact/Contact.jsx";
-
 import Customer from "../Pages/Dashboard/Customer/Customer.jsx";
 import PushNotification from "../Pages/Dashboard/PushNotification/PushNotification.jsx";
-
 import BookingList from "../Pages/Dashboard/Booking/BookingList.jsx";
 import CategoryList from "../Pages/Dashboard/Service/CategoryList/CategoryList.jsx";
 import ServiceList from "../Pages/Dashboard/Service/ServiceList/ServiceList.jsx";
 import SpecificService from "../Pages/Dashboard/DyanamicPage/SpecificService.jsx";
 import SupportChat from "../Pages/Dashboard/SupportChat/SupportChat.jsx";
 import ChatRoom from "../Pages/Dashboard/SupportChat/ChatRoom.jsx";
+import DiscountCoupon from "../Pages/Dashboard/DiscountCoupon/DiscountCoupon.jsx";
+import Report from "../Pages/Dashboard/Report/Report.jsx";
+import Slider from "../Pages/Dashboard/Slider/Slider.jsx";
+import OnboardingScreeen from "../Pages/Dashboard/OnboardingScreen/OnboardingScreeen.jsx";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +49,14 @@ const router = createBrowserRouter([
       {
         path: "/transaction",
         element: <Transaction />,
+      },
+      {
+        path: "/discount-coupon",
+        element: <DiscountCoupon />,
+      },
+      {
+        path: "/reported-issues",
+        element: <Report />,
       },
 
       {
@@ -81,6 +89,14 @@ const router = createBrowserRouter([
       {
         path: "/faq",
         element: <FaqCollapse />,
+      },
+      {
+        path: "/slider",
+        element: <Slider />,
+      },
+      {
+        path: "/onboarding-screen",
+        element: <OnboardingScreeen />,
       },
       {
         path: "/contact",

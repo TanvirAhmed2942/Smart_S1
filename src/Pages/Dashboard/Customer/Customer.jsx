@@ -4,6 +4,7 @@ import { SearchOutlined, DeleteOutlined } from "@ant-design/icons";
 import GetPageName from "../../../components/common/GetPageName";
 import PopOver from "../../../components/common/PopOver";
 import CustomerEditModal from "./CustomerEditModal";
+import { LuDownload } from "react-icons/lu";
 
 function Customer() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -108,6 +109,13 @@ function Customer() {
               Delete Selected
             </Button>
           )}
+          <Button
+            icon={<LuDownload size={20} />}
+            onClick={handleDeleteSelected}
+            className="bg-[#f1f1f1] hover:bg-smart text-black border h-9"
+          >
+            Export
+          </Button>
         </div>
       </div>
 

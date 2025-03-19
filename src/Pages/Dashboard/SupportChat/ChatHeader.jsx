@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 function ChatHeader() {
   const location = useLocation();
   const user = location.state?.user || {}; // Get user data from state
-  console.log(user);
+  console.log("user", user);
   return (
     <div className="flex items-center gap-3 h-full">
       <Badge
@@ -17,7 +17,7 @@ function ChatHeader() {
         }}
       >
         <Avatar
-          src={user.avatar}
+          src={user.avatar?.user.fullName}
           size={60}
           //   className="outline outline-2 outline-slate-600 outline-offset-2 bg-slate-50 ml-4"
           className="bg-slate-50 ml-4"
